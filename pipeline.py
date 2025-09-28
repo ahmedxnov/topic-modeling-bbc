@@ -24,17 +24,16 @@ def main():
         with open(args.config, 'r') as file:
             config = yaml.safe_load(file)
     except FileNotFoundError as e:
-        sys.exit(f"Error loading config file: {e}")
+        raise FileNotFoundError(f"Error loading config file: {e}") from e
     except yaml.YAMLError as e:
-        sys.exit(f"Error parsing config file: {e}")
-    except Exception as e:
-        sys.exit(f"Unexpected error: {e}")
+        raise yaml.YAMLError(f"Error parsing config file: {e}") from e
 
-    lda_model = build_lda_model(BoW_corpus, vocabulary, **config)
-    
+
+    lda_model = build_lda_model(BoW_corpus, vocabulary, **config)    
     topics = lda_model.print_topics(num_words=10)
+    
     for topic in topics:  
-        print(type(topic))
+        print(topic)
 
 
 if __name__ == "__main__":
