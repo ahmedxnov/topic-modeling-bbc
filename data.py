@@ -24,7 +24,7 @@ def cpu_info(number_of_documents: int) -> tuple[int, int]:
     return count, chunk_size
 
 
-def parallel_process(articles: pd.Series, c_count, chunk_size) -> list[str]:
+def parallel_process(articles: pd.Series, c_count, chunk_size) -> list[list[str]]:
     try:
         with Pool(processes=c_count) as pool:
             processed = pool.map(preprocess_text, articles, chunksize=chunk_size)
