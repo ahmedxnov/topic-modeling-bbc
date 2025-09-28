@@ -26,6 +26,4 @@ def lemmatize_tokens(tokens : list[str]) -> list[str]:
         
         
 def preprocess_text(text: str) -> list[str]:
-    if not text or not text.strip():
-        return []
     return lemmatize_tokens(remove_stopwords(tokenize_text(clean_text(text))))
