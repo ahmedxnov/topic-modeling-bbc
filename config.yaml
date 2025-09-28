@@ -1,0 +1,8 @@
+num_topics: 5
+passes: 10
+random_state: 42
+iterations: 150
+alpha: 'auto'
+eta: 'auto'
+update_every: 1
+decay: 0.5
