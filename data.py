@@ -31,4 +31,3 @@ def parallel_process(articles: pd.Series, c_count, chunk_size) -> list[list[str]
         return processed
     except Exception as e:
          raise RuntimeError(f"Parallel processing failed: {e}") from e
-    
