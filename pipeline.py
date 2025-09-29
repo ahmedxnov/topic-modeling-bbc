@@ -32,8 +32,12 @@ def main():
     lda_model = build_lda_model(BoW_corpus, vocabulary, **config)    
     topics = lda_model.print_topics(num_words=10)
     
-    for topic in topics:  
-        print(topic)
+    for topic_id, topic_str in topics:
+        words = [w.split('*')[1].strip().strip('"') for w in topic_str.split('+')]
+        print(f"{topic_id}: {', '.join(words)}")
+
+        
+    
 
 
 if __name__ == "__main__":
