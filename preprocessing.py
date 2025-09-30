@@ -1,32 +1,19 @@
-from constants import TOKENIZER, STOPWORDS, LEMMATIZER, PATTERNS
-
-def clean_text(text : str) -> str:
-    text = text.lower()
-    for name, pattern, repl in PATTERNS:
+from constants import *
+from nltk import pos_tag
+import pandas as pd
+def clean_and_tokenize(text : str) -> list[str]:
+    text = text.strip()
+    for _, pattern, repl in PATTERNS:
         text = pattern.sub(repl, text) 
-    return text.strip()
-  
-
-def tokenize_text(text : str) -> list[str]:
     return TOKENIZER(text)
 
-def remove_stopwords(tokens : list[str]) -> list[str]:
+def filter_nouns_and_lemmatize(tokens: list[str]) -> list[str]:
     filtered_tokens = list()
-    for token in tokens:
-        if token not in STOPWORDS:
-            filtered_tokens.append(token)
+    pos_tags = pos_tag(tokens)
+    for word, tag in pos_tags:
+        if tag.startswith("NN"):
+            filtered_tokens.append(LEMMATIZER.lemmatize(word, pos='n'))
     return filtered_tokens
 
-
-def lemmatize_tokens(tokens : list[str]) -> list[str]:
-    lemmatized_tokens = list()
-    for token in tokens:
-        lemmatized_tokens.append(LEMMATIZER.lemmatize(token))
-    return lemmatized_tokens
-        
-   
-def clean_and_tokenize(text: str) -> list[str]:
-    return tokenize_text(clean_text(text))   
-
-def remove_stopwords_lemmatize(tokens : list[str]) -> list[str]:
-    return lemmatize_tokens(remove_stopwords(tokens))
+def preprocess_text(text: str) -> list[str]:
+    return filter_nouns_and_lemmatize(clean_and_tokenize(text))

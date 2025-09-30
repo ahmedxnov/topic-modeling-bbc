@@ -15,18 +15,11 @@ def main():
     
     dataset = read_dataset(args.dataset)
     c_count, chunk_size = cpu_info(len(dataset))
-    tokenized_docs = parallel_tokenization(dataset, c_count, chunk_size)
-    
-    bigram = Phrases(tokenized_docs, min_count=5, threshold=100)
-    bigram_mod = Phraser(bigram)
-    phrased_docs = [bigram_mod[doc] for doc in tokenized_docs]
-    
-    preprocessed_documents = parallel_stopword_removal_lemmatize(phrased_docs, c_count, chunk_size)
+    tokenized_docs = parallel_preprocessing(dataset, c_count, chunk_size)
     
     
-    
-    vocabulary = build_vocabulary(preprocessed_documents)
-    BoW_corpus = build_BoW_corpus(preprocessed_documents, vocabulary)
+    vocabulary = build_vocabulary(tokenized_docs)
+    BoW_corpus = build_BoW_corpus(tokenized_docs, vocabulary)
     
     try:
         with open(args.config, 'r') as file:
