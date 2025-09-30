@@ -1,4 +1,4 @@
-from constants import TOKENIZER, STOPWORDS, LEMMATIZER, PATTERNS, BASE
+from constants import TOKENIZER, STOPWORDS, LEMMATIZER, PATTERNS
 
 def clean_text(text : str) -> str:
     text = text.lower()
@@ -24,6 +24,9 @@ def lemmatize_tokens(tokens : list[str]) -> list[str]:
         lemmatized_tokens.append(LEMMATIZER.lemmatize(token))
     return lemmatized_tokens
         
-        
-def preprocess_text(text: str) -> list[str]:
-    return lemmatize_tokens(remove_stopwords(tokenize_text(clean_text(text))))
+   
+def clean_and_tokenize(text: str) -> list[str]:
+    return tokenize_text(clean_text(text))   
+
+def remove_stopwords_lemmatize(tokens : list[str]) -> list[str]:
+    return lemmatize_tokens(remove_stopwords(tokens))
