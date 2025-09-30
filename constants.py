@@ -25,12 +25,12 @@ PATTERNS = [
 BASE = set(stopwords.words("english"))
 AUXILIARY_VERBS = {"could", "would", "shall", "may", "might", "must", "need", "dare", "used", "ought"}
 FREQ_ADVERBS = {"always", "usually", "sometimes", "often", "rarely", "seldom", "never", "ever", "hardly", "occasionally", "frequently", "generally", "normally", "regularly"}
-GENERIC_ADVERBS = {"maybe", "really", "already", "still", "yet", "also", "even", "perhaps", "quite", "almost"}
+GENERIC_ADVERBS = {"maybe", "really", "already", "still", "yet", "also", "even", "perhaps", "quite", "almost", "us"}
 GENERIC_VERBS = {"make", "made", "take", "took", "put", "keep", "let", "say", "said", "tell", "told", "think", "thought", "know", "knew", "want", "wanted", "like", "liked", "use", "used", "give", "gave", "get", "got", "find", "found", "see", "saw", "go", "went", "come", "came", "leave", "left", "try", "tried", "work", "worked", "call", "called", "look", "looked"}
 GENERIC_INTENSIFIERS = {"big", "small", "great", "nice", "bad", "good", "new", "old", "high", "low", "many", "much", "less", "least", "better", "best", "worse", "worst", "several", "various", "another", "different", "enough", "plenty", "every"}
 
 NUMERICS = {"first","second","third","fourth","fifth","sixth","seventh","eighth","ninth","tenth","one","two","three","four","five","six","seven","eight","nine","ten"}
-TRANSITION_WORDS = {"however","nevertheless","nonetheless","although","though","whereas","instead","yet","despite","still","therefore","thus","hence","consequently","accordingly","since","moreover","furthermore","also","besides","additionally","next","afterward","afterwards","subsequently","finally","earlier","later","meantime","meanwhile","indeed","namely","specifically","overall","ultimately"}
+TRANSITION_WORDS = {"however","nevertheless","nonetheless","although","though","whereas","instead","yet","despite","still","therefore","thus","hence","consequently","accordingly","since","moreover","furthermore", "also","besides","additionally","next","afterward","afterwards","subsequently","finally","earlier","later","meantime","meanwhile","indeed","namely","specifically","overall","ultimately"}
 TIME_WORDS = {"morning","afternoon","evening","night","midnight","dawn","dusk","day","week","month","year","weekend","weekday","spring","summer","autumn","fall","winter","yesterday","today","tomorrow","tonight","soon","later","earlier","presently","eventually","immediately","forthwith","shortly","afterward","afterwards","beforehand","meantime","meanwhile"}
 HONORIFICS = {"mr","mrs","ms","mx","dr","prof","sir"}
 REPORTING_VERBS = {
@@ -69,4 +69,4 @@ REPORTING_VERBS = {
     "insist", "insists", "insisted", "insisting"
 }
 
-STOPWORDS = BASE | AUXILIARY_VERBS | FREQ_ADVERBS | GENERIC_ADVERBS | GENERIC_VERBS | GENERIC_INTENSIFIERS | {"us"} | NUMERICS | TRANSITION_WORDS | TIME_WORDS | HONORIFICS | REPORTING_VERBS
+STOPWORDS = BASE | AUXILIARY_VERBS | FREQ_ADVERBS | GENERIC_ADVERBS | GENERIC_VERBS | GENERIC_INTENSIFIERS | NUMERICS | TRANSITION_WORDS | TIME_WORDS | HONORIFICS | REPORTING_VERBS
