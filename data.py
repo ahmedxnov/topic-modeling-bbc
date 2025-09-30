@@ -1,7 +1,7 @@
 import pandas as pd
 from multiprocessing import Pool
 from os import cpu_count
-from preprocessing import preprocess_text
+from preprocessing import clean_and_tokenize, remove_stopwords_lemmatize
 import math
 
 def read_dataset(file_path: str, column: str = "Article") -> pd.Series:
@@ -24,10 +24,19 @@ def cpu_info(number_of_documents: int) -> tuple[int, int]:
     return count, chunk_size
 
 
-def parallel_process(articles: pd.Series, c_count, chunk_size) -> list[list[str]]:
+def parallel_tokenization(articles: pd.Series, c_count, chunk_size) -> list[list[str]]:
     try:
-        with Pool(processes=c_count) as pool:
-            processed = pool.map(preprocess_text, articles, chunksize=chunk_size)
+        with Pool(processes=c_count) as p:
+            processed = p.map(clean_and_tokenize, articles, chunksize=chunk_size)
+        return processed
+    except Exception as e:
+         raise RuntimeError(f"Parallel processing failed: {e}") from e
+     
+    
+def parallel_stopword_removal_lemmatize(phrased_documents: list[list[str]], c_count, chunk_size) -> list[list[str]]:
+    try:
+        with Pool(processes=c_count) as p:
+            processed = p.map(remove_stopwords_lemmatize, phrased_documents, chunksize=chunk_size)
         return processed
     except Exception as e:
          raise RuntimeError(f"Parallel processing failed: {e}") from e
