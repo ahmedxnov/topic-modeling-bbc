@@ -2,8 +2,8 @@ from data import *
 import argparse
 from vectorizer import *
 from model import build_lda_model
+from gensim.models.phrases import Phrases, Phraser
 import yaml
-import sys
 
 
 def main():
@@ -15,7 +15,15 @@ def main():
     
     dataset = read_dataset(args.dataset)
     c_count, chunk_size = cpu_info(len(dataset))
-    preprocessed_documents = parallel_process(dataset, c_count, chunk_size)
+    tokenized_docs = parallel_tokenization(dataset, c_count, chunk_size)
+    
+    bigram = Phrases(tokenized_docs, min_count=5, threshold=100)
+    bigram_mod = Phraser(bigram)
+    phrased_docs = [bigram_mod[doc] for doc in tokenized_docs]
+    
+    preprocessed_documents = parallel_stopword_removal_lemmatize(phrased_docs, c_count, chunk_size)
+    
+    
     
     vocabulary = build_vocabulary(preprocessed_documents)
     BoW_corpus = build_BoW_corpus(preprocessed_documents, vocabulary)
