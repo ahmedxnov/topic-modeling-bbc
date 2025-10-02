@@ -19,6 +19,8 @@ def main():
     
     
     vocabulary = build_vocabulary(tokenized_docs)
+    vocabulary.filter_extremes(no_below=30 ,no_above=0.2)
+    vocabulary.compactify()
     BoW_corpus = build_BoW_corpus(tokenized_docs, vocabulary)
     
     try:
@@ -37,10 +39,6 @@ def main():
         words = [w.split('*')[1].strip().strip('"') for w in topic_str.split('+')]
         print(f"{topic_id}: {', '.join(words)}")
 
-        
-    
-
 
 if __name__ == "__main__":
     main()
-

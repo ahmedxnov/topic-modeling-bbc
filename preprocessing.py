@@ -11,7 +11,7 @@ def filter_nouns_and_lemmatize(tokens: list[str]) -> list[str]:
     filtered_tokens = list()
     pos_tags = pos_tag(tokens)
     for word, tag in pos_tags:
-        if tag.startswith("NN"):
+        if tag == "NN" or tag == "NNS":
             filtered_tokens.append(LEMMATIZER.lemmatize(word, pos='n'))
     return filtered_tokens
 
