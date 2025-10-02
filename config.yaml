@@ -1,17 +1,14 @@
-    num_topics: 5                # optimal for your data - captures natural topic structure
-    alpha: 0.01                   # low value for focused, distinct topics
-    eta: 0.01                     # low value for sharp word distributions per topic  
-    chunksize: 200                # good for your 2127 documents
-    passes: 40                    # more passes for maximum convergence
-    iterations: 300               # higher for better per-document inference
-    update_every: 1               # online training (update every chunk)
-    decay: 0.5                    # standard online-LDA setting
-    offset: 64.0                  # standard online-LDA setting (downweight early updates)
-    eval_every: 5                 # periodic perplexity eval without too much overhead
-    gamma_threshold: 0.001        # convergence tolerance (default good)
-    minimum_probability: 0.0      # keep full topic distribution per word/document for analysis
-    minimum_phi_value: 0.01       # prune tiny phi entries to reduce noise
-    per_word_topics: true         # useful for diagnostics / debugging
-    random_state: 42              # reproducibility
-    dtype: float32                # efficient defaults
+num_topics: 5
+alpha: 0.01
+eta: 0.01
+chunksize: 200
+passes: 40
+iterations: 300
+offset: 64.0
+eval_every: 5
+minimum_probability: 0.0
+minimum_phi_value: 0.01
+per_word_topics: true
+random_state: 42
+dtype: float32
 
