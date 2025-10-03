@@ -118,6 +118,18 @@ def main():
                             label=f"{topic_icon} {topic_name}",
                             value=f"{probability:.1%}"
                         )
+                        
+                with st.expander("📋 Model Information & Limitations"):
+                    st.info("""
+                    **Model Training:** This LDA model was trained specifically on BBC news articles.
+                    
+                    **Best Performance:** Input articles similar in style and content to BBC news for optimal results.
+                    
+                    **Limitations:**
+                    - May not generalize well to non-news text or informal writing
+                    - Doesn't handle grammatical errors or heavy slang
+                    - Probabilities may not sum to exactly 100% due to rounding
+                    """)
                 
             except Exception as e:
                 st.error(f"Error during prediction: {e}")
