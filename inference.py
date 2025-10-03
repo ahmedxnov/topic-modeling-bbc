@@ -3,7 +3,6 @@ from gensim.models import LdaModel
 from gensim.corpora import Dictionary
 import os
 from preprocessing import preprocess_text
-from vectorizer import build_BoW_corpus
 def main():
     parser = argparse.ArgumentParser(description="Topic Modeling Inference")
     parser.add_argument("--model_path", type=str, default="models/lda_model.gensim", help="Path to the trained LDA model")

@@ -1,11 +1,9 @@
 from data import *
 import argparse
-from vectorizer import *
-from model import build_lda_model
+from gensim.models import LdaModel
+from gensim import corpora
 import yaml
 import os
-
-
 def main():
     parser = argparse.ArgumentParser(description="Topic Modeling Pipeline")
     parser.add_argument("--dataset", type=str, default="dataset/Labeled BBC.csv", help="Path to the dataset CSV file")
@@ -32,7 +30,7 @@ def main():
     print("Document preprocessing completed")
     
     print("\nStep 4: Building vocabulary...")
-    vocabulary = build_vocabulary(tokenized_docs)
+    vocabulary = corpora.Dictionary(tokenized_docs)
     print(f"Initial vocabulary size: {len(vocabulary)}")
     
     print("Filtering vocabulary extremes...")
@@ -41,7 +39,7 @@ def main():
     print(f"Filtered vocabulary size: {len(vocabulary)}")
     
     print("\nStep 5: Creating Bag of Words corpus...")
-    BoW_corpus = build_BoW_corpus(tokenized_docs, vocabulary)
+    BoW_corpus = [vocabulary.doc2bow(doc) for doc in tokenized_docs]
     print("BoW corpus created")
     
     print("\nStep 6: Loading configuration...")
@@ -56,7 +54,7 @@ def main():
         raise yaml.YAMLError(f"Error parsing config file: {e}") from e
 
     print("\nStep 7: Training LDA model...")
-    lda_model = build_lda_model(BoW_corpus, vocabulary, **config)
+    lda_model = LdaModel(corpus=BoW_corpus, id2word=vocabulary, **config)
     print("LDA model training completed")
     
     print("\nStep 8: Extracting topics...")
