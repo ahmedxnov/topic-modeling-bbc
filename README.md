@@ -30,14 +30,6 @@ This project implements unsupervised topic modeling on the BBC news dataset usin
 - **Flexible YAML configuration** enabling hyperparameter tuning without code changes
 - **Cross-platform compatibility** with automated directory creation and path handling
 
-## Files Structure
-- `pipeline.py` - Main training pipeline
-- `inference.py` - Inference script for new documents
-- `app.py` - Streamlit web application
-- `config.yaml` - LDA model configuration
-- `dataset/Labeled BBC.csv` - BBC news dataset
-- `models/` - Trained model artifacts
-
 ## Installation
 ### Prerequisites
 - Python 3.8+
