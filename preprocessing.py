@@ -1,6 +1,5 @@
 from constants import *
 from nltk import pos_tag
-import pandas as pd
 def clean_and_tokenize(text : str) -> list[str]:
     text = text.strip()
     for _, pattern, repl in PATTERNS:
