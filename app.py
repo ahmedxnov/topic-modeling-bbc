@@ -81,60 +81,61 @@ def main():
         for topic_id, topic_name in topic_labels.items():
             st.markdown(f"{topic_icons[topic_id]} **{topic_name}**")
     
-    if predict_button:
-        if article.strip():
-            try:
-                processed_article = preprocess_text(article)
-                
-                if not processed_article:
-                    st.warning("The text became empty after preprocessing. Please try with different text.")
-                    return
-                
-                BoW = vocabulary.doc2bow(processed_article)
-                
-                if not BoW:
-                    st.warning("No words in the text were found in the model's vocabulary. Please try with different text.")
-                    return
-                
-                topic_predictions = lda_model.get_document_topics(BoW, minimum_probability=0.0)
-                
-                st.divider()
-                st.markdown("## 🎯 Prediction Results")
-                
-                max_topic_id, max_probability = max(topic_predictions, key=lambda x: x[1])
-                max_topic_name = topic_labels[max_topic_id]
-                max_topic_icon = topic_icons[max_topic_id]
-                
-                st.success(f"{max_topic_icon} **Most likely topic: {max_topic_name}** ({max_probability:.1%} confidence)")
-                
-                st.markdown("**All Topic Probabilities:**")
-                
-                cols = st.columns(len(topic_labels))
-                for i, (topic_id, probability) in enumerate(topic_predictions):
-                    topic_name = topic_labels[topic_id]
-                    topic_icon = topic_icons[topic_id]
-                    with cols[i]:
-                        st.metric(
-                            label=f"{topic_icon} {topic_name}",
-                            value=f"{probability:.1%}"
-                        )
-                        
-                with st.expander("📋 Model Information & Limitations"):
-                    st.info("""
-                    **Model Training:** This LDA model was trained specifically on BBC news articles.
+    # Handle prediction logic
+    if predict_button and article and article.strip():
+        try:
+            processed_article = preprocess_text(article)
+            
+            if not processed_article:
+                st.warning("The text became empty after preprocessing. Please try with different text.")
+                return
+            
+            BoW = vocabulary.doc2bow(processed_article)
+            
+            if not BoW:
+                st.warning("No words in the text were found in the model's vocabulary. Please try with different text.")
+                return
+            
+            topic_predictions = lda_model.get_document_topics(BoW, minimum_probability=0.0)
+            
+            st.divider()
+            st.markdown("## 🎯 Prediction Results")
+            
+            max_topic_id, max_probability = max(topic_predictions, key=lambda x: x[1])
+            max_topic_name = topic_labels[max_topic_id]
+            max_topic_icon = topic_icons[max_topic_id]
+            
+            st.success(f"{max_topic_icon} **Most likely topic: {max_topic_name}** ({max_probability:.1%} confidence)")
+            
+            st.markdown("**All Topic Probabilities:**")
+            
+            cols = st.columns(len(topic_labels))
+            for i, (topic_id, probability) in enumerate(topic_predictions):
+                topic_name = topic_labels[topic_id]
+                topic_icon = topic_icons[topic_id]
+                with cols[i]:
+                    st.metric(
+                        label=f"{topic_icon} {topic_name}",
+                        value=f"{probability:.1%}"
+                    )
                     
-                    **Best Performance:** Input articles similar in style and content to BBC news for optimal results.
-                    
-                    **Limitations:**
-                    - May not generalize well to non-news text or informal writing
-                    - Doesn't handle grammatical errors or heavy slang
-                    - Probabilities may not sum to exactly 100% due to rounding
-                    """)
+            # Model information in expandable section
+            with st.expander("📋 Model Information & Limitations"):
+                st.info("""
+                **Model Training:** This LDA model was trained specifically on BBC news articles.
                 
-            except Exception as e:
-                st.error(f"Error during prediction: {e}")
-        else:
-            st.error("Please enter some text for prediction.")
+                **Best Performance:** Input articles similar in style and content to BBC news for optimal results.
+                
+                **Limitations:**
+                - May not generalize well to non-news text or informal writing
+                - Doesn't handle grammatical errors or heavy slang
+                - Probabilities may not sum to exactly 100% due to rounding
+                """)
+            
+        except Exception as e:
+            st.error(f"Error during prediction: {e}")
+    elif predict_button:
+        st.error("Please enter some text for prediction.")
 
 if __name__ == "__main__":
     main()
