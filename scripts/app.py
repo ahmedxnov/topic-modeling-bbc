@@ -1,11 +1,19 @@
+#!/usr/bin/env python3
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
 from gensim.models import LdaModel
 from gensim.corpora import Dictionary
 import os
-from preprocessing import preprocess_text
+from src.utils.preprocessing import preprocess_text
+from src.utils.constants import MODEL_PATH, VOCAB_PATH
 
 @st.cache_resource
-def load_model(model_path="models/lda_model.gensim", vocab_path="models/vocabulary.dict"):
+def load_model(model_path=MODEL_PATH, vocab_path=VOCAB_PATH):
+    model_path = str(model_path)
+    vocab_path = str(vocab_path)
+    
     if not os.path.isfile(model_path):
         st.error(f"Model file not found at {model_path}")
         return None, None
@@ -53,33 +61,29 @@ def main():
         
         st.markdown("## 📊 Dataset Info")
         st.markdown("""
-        - **Source**: [BBC Dataset](http://mlg.ucd.ie/datasets/bbc.html)
+        - **Name**: BBC News Articles Datase
         - **Documents**: 2,127 unique articles
         - **Algorithm**: Gensim LDA
         - **Representation**: Bag of Words
         """)
         
         st.markdown("## 🔗 Links")
+        st.markdown("📈 [LDA Paper](https://arxiv.org/pdf/1711.04305)")
+        st.markdown("🌐 [BBC Dataset](http://mlg.ucd.ie/datasets/bbc.html)")
         st.markdown("[📂 GitHub Repository](https://github.com/ahmedxnov/topic-modeling-bbc)")
+        st.markdown("---")
+        st.markdown("**👨‍💻 Developer:** [Ahmad Khaled](https://www.linkedin.com/in/ahmad-khaled-hamed/)")
     
-    col1, col2 = st.columns([2, 1])
+    # 🔹 Everything now in one column
+    st.markdown("## 🔍 Article Classification")
+    st.markdown("Enter a news article below to predict its topic:")
     
-    with col1:
-        st.markdown("## 🔍 Article Classification")
-        st.markdown("Enter a news article below to predict its topic:")
-        
-        topic_labels = {0: "Politics", 1: "Business", 2: "Entertainment", 3: "Technology", 4: "Sports"}
-        topic_icons = {0: "🏛️", 1: "💼", 2: "🎬", 3: "💻", 4: "⚽"}
-        
-        article = st.text_area("Enter an article for topic prediction:", height=150, placeholder="Type or paste your news article here...")
-        
-        predict_button = st.button("🎯 Predict Topic Distribution", type="primary")
+    topic_labels = {0: "Politics", 1: "Business", 2: "Entertainment", 3: "Technology", 4: "Sports"}
+    topic_icons = {0: "🏛️", 1: "💼", 2: "🎬", 3: "💻", 4: "⚽"}
     
-    with col2:
-        st.markdown("## 📋 Model Topics")
-        st.markdown("**The model can identify these topics:**")
-        for topic_id, topic_name in topic_labels.items():
-            st.markdown(f"{topic_icons[topic_id]} **{topic_name}**")
+    article = st.text_area("Enter an article for topic prediction:", height=150, placeholder="Type or paste your news article here...")
+    
+    predict_button = st.button("🎯 Predict Topic Distribution", type="primary")
     
     # Handle prediction logic
     if predict_button and article and article.strip():
@@ -119,7 +123,6 @@ def main():
                         value=f"{probability:.1%}"
                     )
                     
-            # Model information in expandable section
             with st.expander("📋 Model Information & Limitations"):
                 st.info("""
                 **Model Training:** This LDA model was trained specifically on BBC news articles.

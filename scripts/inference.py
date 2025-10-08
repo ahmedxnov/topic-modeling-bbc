@@ -2,12 +2,12 @@ import argparse
 from gensim.models import LdaModel
 from gensim.corpora import Dictionary
 import os
-from preprocessing import preprocess_text
+from src.utils.preprocessing import preprocess_text
 def main():
     parser = argparse.ArgumentParser(description="Topic Modeling Inference")
-    parser.add_argument("--model_path", type=str, default="models/lda_model.gensim", help="Path to the trained LDA model")
-    parser.add_argument("--vocab_path", type=str, default="models/vocabulary.dict", help="Path to the vocabulary dictionary")
-    parser.add_argument("--new_data", type=str, required=True, help="Path to the new dataset text file for inference")
+    parser.add_argument("--model_path", "-m",type=str, default="models/lda_model.gensim", help="Path to the trained LDA model")
+    parser.add_argument("--vocab_path", "-v",type=str, default="models/vocabulary.dict", help="Path to the vocabulary dictionary")
+    parser.add_argument("--new_data", "-nd",type=str, required=True, help="Path to the a text file for inference")
     args = parser.parse_args()
     
 

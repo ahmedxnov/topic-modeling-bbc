@@ -1,4 +1,7 @@
-from data import *
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from src.data.dataset_pipeline import *
 import argparse
 from gensim.models import LdaModel
 from gensim import corpora
@@ -7,7 +10,7 @@ import os
 def main():
     parser = argparse.ArgumentParser(description="Topic Modeling Pipeline")
     parser.add_argument("--dataset", type=str, default="dataset/Labeled BBC.csv", help="Path to the dataset CSV file")
-    parser.add_argument("--config", type=str, default="config.yaml", help="Path to the configuration file")
+    parser.add_argument("--config", type=str, default="config/config.yaml", help="Path to the configuration file")
     parser.add_argument("--save_model", type=str, default="models/lda_model.gensim", help="Path to save the trained LDA model")
     parser.add_argument("--save_vocab", type=str, default="models/vocabulary.dict", help="Path to save the vocabulary dictionary")
     args = parser.parse_args()
@@ -15,7 +18,7 @@ def main():
     print("Starting Topic Modeling Pipeline...")
     print(f"Dataset: {args.dataset}")
     print(f"Config: {args.config}")
-    print()
+    print(f"Save Model: {args.save_model}")
     
     print("Step 1: Loading dataset...")
     dataset = read_dataset(args.dataset)

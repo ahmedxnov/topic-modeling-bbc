@@ -1,7 +1,7 @@
 import pandas as pd
 from multiprocessing import Pool
 from os import cpu_count
-from preprocessing import preprocess_text
+from src.utils.preprocessing import preprocess_text
 import math
 
 def read_dataset(file_path: str, column: str = "Article") -> pd.Series:

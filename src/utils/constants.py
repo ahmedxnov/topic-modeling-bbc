@@ -1,6 +1,11 @@
 import re
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+MODEL_PATH = ROOT / "models" / "lda_model.gensim"
+VOCAB_PATH = ROOT / "models" / "vocabulary.dict"
 
 TOKENIZER = word_tokenize
 LEMMATIZER = WordNetLemmatizer()

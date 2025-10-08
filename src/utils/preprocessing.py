@@ -1,4 +1,4 @@
-from constants import *
+from src.utils.constants import *
 from nltk import pos_tag
 def clean_and_tokenize(text : str) -> list[str]:
     text = text.strip()
