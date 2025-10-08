@@ -56,6 +56,8 @@ This project implements unsupervised topic modeling on the BBC news dataset usin
 
 ```
 topic-modeling-bbc/
+├── config/                    # Configuration files
+│   └── config.yaml           # LDA model hyperparameters
 ├── dataset/                   # Dataset directory
 │   └── Labeled BBC.csv       # BBC news articles dataset
 ├── models/                    # Trained models (generated after training)
@@ -64,33 +66,40 @@ topic-modeling-bbc/
 │   ├── lda_model.gensim.id2word
 │   ├── lda_model.gensim.state
 │   └── vocabulary.dict       # Vocabulary dictionary
-├── constants.py              # Text preprocessing patterns and NLP tools
-├── data.py                   # Data loading and parallel processing utilities
-├── preprocessing.py          # Text preprocessing pipeline with POS filtering
-├── pipeline.py               # Main training pipeline with logging
-├── inference.py              # Topic prediction for new documents
-├── app.py                    # Streamlit web interface
-├── config.yaml               # LDA model hyperparameters
-├── requirements.txt          # Project dependencies
+├── scripts/                   # Executable scripts
+│   ├── app.py                # Streamlit web interface
+│   ├── inference.py          # Topic prediction for new documents
+│   └── train.py              # Main training pipeline script
+├── src/                       # Source code modules
+│   ├── data/                 # Data processing modules
+│   │   ├── __init__.py
+│   │   └── dataset_pipeline.py  # Data loading and parallel processing
+│   ├── utils/                # Utility modules
+│   │   ├── __init__.py
+│   │   ├── constants.py      # Text preprocessing patterns and NLP tools
+│   │   └── preprocessing.py  # Text preprocessing pipeline with POS filtering
+│   └── __init__.py
+├── .gitignore                # Git ignore file
+├── LICENSE                   # MIT License
 ├── README.md                 # Project documentation
-└── LICENSE                   # MIT License
+└── requirements.txt          # Project dependencies
 ```
 
 ## Usage
 
 ### Training
 ```bash
-python pipeline.py --dataset "dataset/Labeled BBC.csv" --config "config.yaml"
+python scripts/train.py
 ```
 
 ### Inference
 ```bash
-python inference.py --new_data "your_document.txt"
+python scripts/inference.py --new_data "your_document.txt"
 ```
 
 ### Web App
 ```bash
-streamlit run app.py
+streamlit run scripts/app.py
 ```
 
 Then open your browser to `http://localhost:8501`
