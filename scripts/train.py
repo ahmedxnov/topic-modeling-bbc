@@ -9,10 +9,10 @@ import yaml
 import os
 def main():
     parser = argparse.ArgumentParser(description="Topic Modeling Pipeline")
-    parser.add_argument("--dataset", type=str, default="dataset/Labeled BBC.csv", help="Path to the dataset CSV file")
-    parser.add_argument("--config", type=str, default="config/config.yaml", help="Path to the configuration file")
-    parser.add_argument("--save_model", type=str, default="models/lda_model.gensim", help="Path to save the trained LDA model")
-    parser.add_argument("--save_vocab", type=str, default="models/vocabulary.dict", help="Path to save the vocabulary dictionary")
+    parser.add_argument("--dataset", "-d",type=str, default="dataset/Labeled BBC.csv", help="Path to the dataset CSV file")
+    parser.add_argument("--config", "-c",type=str, default="config/config.yaml", help="Path to the configuration file")
+    parser.add_argument("--save_model", "-sm",type=str, default="models/lda_model.gensim", help="Path to save the trained LDA model")
+    parser.add_argument("--save_vocab", "-sv",type=str, default="models/vocabulary.dict", help="Path to save the vocabulary dictionary")
     args = parser.parse_args()
     
     print("Starting Topic Modeling Pipeline...")
