@@ -6,9 +6,9 @@ A topic modeling project that discovers and identifies topics in BBC news articl
 This project implements unsupervised topic modeling on the BBC news dataset using:
 
 - **Advanced text preprocessing** with custom regex patterns, POS tagging, and lemmatization
-- **Latent Dirichlet Allocation (LDA)** with optimized hyperparameters for topic discovery
 - **Parallel processing architecture** for efficient document preprocessing and model training
 - **Bag-of-Words vectorization** with vocabulary filtering and extremes handling
+- **Latent Dirichlet Allocation (LDA)** with optimized hyperparameters for topic discovery
 - **Interactive web interface** built with Streamlit for real-time topic prediction
 - **Modular, production-ready code** with YAML configurations and comprehensive logging
 - **Complete inference pipeline** supporting both batch and single document prediction
